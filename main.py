@@ -92,11 +92,11 @@ plt.bar(range(len(score)),score)
 """##DTW"""
 
 # Commented out IPython magic to ensure Python compatibility.
-!git clone https://github.com/Miho-Tanaka/dtaidistance_sse
+git clone https://github.com/Miho-Tanaka/dtaidistance_sse
 # %cd dtaidistance_sse
 
-!yes | pip uninstall dtaidistance
-!python3 setup.py install
+yes | pip uninstall dtaidistance
+python3 setup.py install
 
 path_correct = 'https://storage.cloud.google.com/smartse-music/burg5sec.wav'
 path_sample = 'https://storage.cloud.google.com/smartse-music/' + filename
