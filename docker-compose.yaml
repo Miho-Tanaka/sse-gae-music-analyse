@@ -1,0 +1,8 @@
+version: '3'
+services:
+  gae-python:
+    restart: always
+    build: .
+    container_name: 'gae-python'
+    working_dir: '/root/'
+    tty: true

@@ -14,8 +14,15 @@
 
 # [START gae_flex_quickstart]
 import logging
+import pandas as pd
+import matplotlib.pyplot as plt
 
 from flask import Flask
+import librosa
+import librosa.display
+import numpy as np
+from dtaidistance import dtw
+from dtaidistance import dtw_visualisation as dtwvis
 
 
 app = Flask(__name__)
@@ -23,11 +30,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    import numpy as np
-    import matplotlib.pyplot as plt
-    import pandas as pd
-    import librosa
-    import librosa.display
+    print('hello')
 
 def monauralize(data):
     #モノラル化
@@ -78,8 +81,11 @@ print(cosine_similarity([[1,1,1]],[[1,1,1]])[0])
 def cosine_similarity_scores(cens_correct, cens_sample):
   return np.diag(cosine_similarity(cens_correct.values.T,cens_sample.values.T))
 
-correct_path = 'https://storage.cloud.google.com/smartse-music/burg5sec.wav'
-sample_path = 'https://storage.cloud.google.com/smartse-music/' + filename
+# correct_path = 'https://storage.cloud.google.com/smartse-music/burg5sec.wav'
+correct_path = 'burgFast.wav'
+
+# sample_path = 'https://storage.cloud.google.com/smartse-music/' + filename
+sample_path = 'burgFast.wav'
 def compare(path_correct,path_sample):
   cens_correct = pd.DataFrame(librosa_chroma(file_path=path_correct, sr=44100))
   cens_sample = pd.DataFrame(librosa_chroma(file_path=path_sample, sr=44100))
@@ -92,14 +98,17 @@ plt.bar(range(len(score)),score)
 """##DTW"""
 
 # Commented out IPython magic to ensure Python compatibility.
-git clone https://github.com/Miho-Tanaka/dtaidistance_sse
+# git clone https://github.com/Miho-Tanaka/dtaidistance_sse
 # %cd dtaidistance_sse
 
-yes | pip uninstall dtaidistance
-python3 setup.py install
+# yes | pip uninstall dtaidistance
+# python3 setup.py install
 
-path_correct = 'https://storage.cloud.google.com/smartse-music/burg5sec.wav'
-path_sample = 'https://storage.cloud.google.com/smartse-music/' + filename
+# path_correct = 'https://storage.cloud.google.com/smartse-music/burg5sec.wav'
+path_correct = 'burgFast.wav'
+
+# path_sample = 'https://storage.cloud.google.com/smartse-music/burg5sec.wav'
+path_sample = 'burgFast.wav'
 
 #from collections import OrderedDict
 import librosa
@@ -122,8 +131,8 @@ cens_sample = librosa_chroma(file_path=path_sample, sr=44100)
 x = cens_correct
 y = cens_sample
 
-from dtaidistance import dtw
-from dtaidistance import dtw_visualisation as dtwvis
+# from dtaidistance import dtw
+# from dtaidistance import dtw_visualisation as dtwvis
 import numpy as np
 path = dtw.warping_path(x.T,y.T)
 dtwvis.plot_warping([z[0] for z in x.T], [z[0] for z in y.T], path)
@@ -132,7 +141,7 @@ dtwvis.plot_warping([z[2] for z in x.T], [z[2] for z in y.T], path)
 
 plt.plot(np.array(path).T[0], np.array(path).T[1], 'k')
 plt.show()
-    return 'Done!!'
+    # return 'Done!!'
 
 @app.errorhandler(500)
 def server_error(e):
