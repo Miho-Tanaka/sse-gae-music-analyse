@@ -104,12 +104,6 @@ plt.bar(range(len(score)),score)
 # yes | pip uninstall dtaidistance
 # python3 setup.py install
 
-# path_correct = 'https://storage.cloud.google.com/smartse-music/burg5sec.wav'
-path_correct = 'burgFast.wav'
-
-# path_sample = 'https://storage.cloud.google.com/smartse-music/burg5sec.wav'
-path_sample = 'burgFast.wav'
-
 #from collections import OrderedDict
 import librosa
 import librosa.display
@@ -126,8 +120,8 @@ def librosa_chroma(file_path="", sr=44100):
     C = librosa.feature.chroma_cens(y=y_harmonic, sr=sr)
     return C
 
-cens_correct = librosa_chroma(file_path=path_correct, sr=44100)
-cens_sample = librosa_chroma(file_path=path_sample, sr=44100)
+cens_correct = librosa_chroma(file_path=correct_path, sr=44100)
+cens_sample = librosa_chroma(file_path=sample_path, sr=44100)
 x = cens_correct
 y = cens_sample
 
