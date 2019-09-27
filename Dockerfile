@@ -13,6 +13,7 @@ RUN pip install matplotlib
 RUN git clone https://github.com/Miho-Tanaka/dtaidistance_sse
 RUN pip uninstall dtaidistance && cd dtaidistance_sse && python3 ./setup.py install
 RUN pip install dtw
+RUN pip install tqdm
 
 RUN apt-get -y update 
 RUN apt-get install -y libsndfile1
