@@ -3,6 +3,11 @@ services:
   gae-python:
     restart: always
     build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - ".:/root"
     container_name: 'gae-python'
     working_dir: '/root/'
     tty: true
+    command: flask run --host 0.0.0.0 --port 5000

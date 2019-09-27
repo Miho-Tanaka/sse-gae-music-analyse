@@ -1,0 +1,4 @@
+*.wav
+.cache/*
+.config/*
+__pycache__/*
