@@ -77,7 +77,7 @@ def librosa_chroma(file_path="https://storage.cloud.google.com/smartse-music/bur
 from sklearn.metrics.pairwise import cosine_similarity
 # assume cens_correct and cens_sample are ndarray
 # whose shape are both (12, window_num)
-print(cosine_similarity([[1,1,1]],[[1,1,1]])[0])
+#print(cosine_similarity([[1,1,1]],[[1,1,1]])[0])
 def cosine_similarity_scores(cens_correct, cens_sample):
   return np.diag(cosine_similarity(cens_correct.values.T,cens_sample.values.T))
 
