@@ -22,5 +22,3 @@ RUN apt-get install -y libsndfile1
 # RUN python -m pip list
 
 EXPOSE 8080
-
-CMD python main.py
