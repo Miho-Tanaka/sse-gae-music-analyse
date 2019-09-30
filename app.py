@@ -20,6 +20,8 @@ from flask import Flask, request, render_template
 import librosa
 import librosa.display
 import numpy as np
+from fastdtw import fastdtw
+from math import acos
 from dtaidistance import dtw
 from dtaidistance import dtw_visualisation as dtwvis
 from sklearn.metrics.pairwise import cosine_similarity
@@ -171,7 +173,12 @@ def hello():
     y = cens_sample
     print(cens_correct)
     print(cens_sample)
+<<<<<<< HEAD
     path = dtw.warping_path(x.T,y.T)
+=======
+    #path = dtw.warping_path(x.T,y.T)
+    _,path = fastdtw(x.T, y.T, dist=(lambda x,y:acos(min(1,max(-1,cosine_similarity([x],[y])[0][0])))))
+>>>>>>> 01bc53a0a0003e9cd4192ed763c72a007807711e
 
     max_scores,min_scores = rythm_deviation_cos_sim(path, x.T, y.T)
 
@@ -195,16 +202,16 @@ def hello():
     # 2.合格のうち、演奏の長さに応じて「速い」「遅い」「ただしい」を分岐
     if dtw_cos_sim / len_correct * 100 > 90:
         if speed_ratio > 1.1:
-            evaluate = '速く弾きましたね'
+            evaluate = 'ノリノリでひけましたね！つぎはすこしだけテンポをおとしてれんしゅうしてみましょう！'
         elif speed_ratio < 0.9:
-            evaluate = 'ゆっくり弾きましたね'
+            evaluate = 'ていねいにひけましたね！つぎはすこしだけテンポをあげてれんしゅうしてみましょう！'
         else:
-            evaluate = 'じょうずに弾きましたね'
+            evaluate = 'とてもじょうずにひけましたね！このちょうしでいろんなきょくをれんしゅうしてみましょう！'
     else:
-        evaluate = 'もうすこしがんばろう'
+        evaluate = 'がんばったね！じぶんのえんそうとさんこうえんそうをききくらべて、どこがちがったか、かんがえてみましょう！'
 
 
-    str_result = str_cos_sim + str_dtw_cos_sim + evaluate
+    str_result = evaluate + str_cos_sim + str_dtw_cos_sim
     print(str_result)
 
     return str_result
