@@ -194,9 +194,9 @@ def hello():
     evaluate = ''
     speed_ratio = len_correct / len_sample
     # 判定基準
-    # 1.DTW後のコサイン類似度が90%以上なら合格。そうでなければ不合格
+    # 1.DTW後のコサイン類似度が94%以上なら合格。そうでなければ不合格
     # 2.合格のうち、演奏の長さに応じて「速い」「遅い」「ただしい」を分岐
-    if dtw_cos_sim / len_correct * 100 > 90:
+    if dtw_cos_sim / len_correct * 100 >= 94:
         if speed_ratio > 1.1:
             evaluate = 'ノリノリでひけましたね！つぎはすこしだけテンポをおとしてれんしゅうしてみましょう！'
         elif speed_ratio < 0.9:
