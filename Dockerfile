@@ -22,7 +22,7 @@ RUN apt-get install -y libsndfile1
 
 # RUN python -m pip list
 
-EXPOSE 5000
+EXPOSE 8080
 
 WORKDIR /root
 
