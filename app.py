@@ -235,8 +235,9 @@ def send():
 
             logging.debug(bucket)
 
+            temp_file_path = 'tmp/' + source_file_name
             # TODO (Developer): Replace this with the name of the local file to upload.
-            blob = bucket.blob(os.path.basename(source_file_name))
+            blob = bucket.blob(os.path.basename(temp_file_path))
             # Upload the local file to Cloud Storage.
             blob.upload_from_filename(source_file_name)
 
