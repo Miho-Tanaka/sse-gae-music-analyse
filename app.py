@@ -222,17 +222,20 @@ def send():
     if request.method == 'POST':
         img_file = request.files['img_file']
         source_file_name = request.files['img_file'].filename
+        logging.debug(request.files['img_file'])
         print('source file name is ')
+        logging.debug('source file name is ')
         print(source_file_name)
+        logging.debug(source_file_name)
         if img_file:
             storage_client = google.cloud.storage.Client()
 
             bucket_name = 'smartse-music'
             bucket = storage_client.get_bucket(bucket_name)
 
+            logging.debug(bucket)
+
             # TODO (Developer): Replace this with the name of the local file to upload.
-            print('source_file_name is ')
-            print(source_file_name)
             blob = bucket.blob(os.path.basename(source_file_name))
             # Upload the local file to Cloud Storage.
             blob.upload_from_filename(source_file_name)
