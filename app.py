@@ -172,7 +172,7 @@ def hello():
     print(cens_correct)
     print(cens_sample)
     #path = dtw.warping_path(x.T,y.T)
-    path = fastdtw(x.T, y.T, dist=(lambda x,y:acos(min(1,max(-1,cosine_similarity([x],[y])[0][0])))))
+    _,path = fastdtw(x.T, y.T, dist=(lambda x,y:acos(min(1,max(-1,cosine_similarity([x],[y])[0][0])))))
 
     max_scores,min_scores = rythm_deviation_cos_sim(path, x.T, y.T)
 
