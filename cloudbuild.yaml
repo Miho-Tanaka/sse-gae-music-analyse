@@ -1,0 +1,8 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '--tag=us.gcr.io/michelle20141114/sse-music:$REVISION_ID', '.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ["push", "us.gcr.io/michelle20141114/sse-music:$REVISION_ID"]
+- name: "gcr.io/cloud-builders/gcloud"
+  args: ["app", "deploy", "--image-url", "us.gcr.io/michelle20141114/sse-music:$REVISION_ID"]
+timeout: 1200s
