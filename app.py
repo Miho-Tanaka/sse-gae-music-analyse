@@ -20,6 +20,7 @@ from flask import Flask, request
 import librosa
 import librosa.display
 import numpy as np
+from fastdtw import fastdtw
 from dtaidistance import dtw
 from dtaidistance import dtw_visualisation as dtwvis
 from sklearn.metrics.pairwise import cosine_similarity
@@ -169,7 +170,8 @@ def hello():
     y = cens_sample
     print(cens_correct)
     print(cens_sample)
-    path = dtw.warping_path(x.T,y.T)
+    #path = dtw.warping_path(x.T,y.T)
+    path = fastdtw(x.T, y.T, dist=(lambda x,y:acos(min(1,max(-1,cosine_similarity([x],[y])[0][0])))))
 
     max_scores,min_scores = rythm_deviation_cos_sim(path, x.T, y.T)
 
