@@ -129,7 +129,7 @@ def rythm_deviation_cos_sim(path,cens_correct,cens_sample):
   return max_scores,min_scores
 
  # =====
-@app.route('/')
+@app.route('/analyze')
 def hello():
     print('hello')
     url = request.args.get('url')
@@ -207,7 +207,7 @@ def hello():
 
     return str_result
 
-@app.route('/index')
+@app.route('/')
 def index():
     return 'INDEX'
 
@@ -223,5 +223,5 @@ if __name__ == '__main__':
     # # This is used when running locally. Gunicorn is used to run the
     # # application on Google App Engine. See entrypoint in app.yaml.
     # app.run(host='127.0.0.1', port=8080, debug=True)
-    app.run()
+    app.run(host='0.0.0.0',port=8080, debug=True)
 # [END gae_flex_quickstart]
