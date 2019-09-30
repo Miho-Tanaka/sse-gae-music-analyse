@@ -21,6 +21,7 @@ import librosa
 import librosa.display
 import numpy as np
 from fastdtw import fastdtw
+from math import acos
 from dtaidistance import dtw
 from dtaidistance import dtw_visualisation as dtwvis
 from sklearn.metrics.pairwise import cosine_similarity
