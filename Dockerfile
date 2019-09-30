@@ -7,6 +7,7 @@ RUN pip3 install --upgrade pip
 RUN pip3 install --no-cache-dir pandas --no-build-isolation
 
 RUN pip3 install flask 
+RUN pip install google-cloud-storage
 RUN pip install sklearn
 RUN pip install librosa
 RUN pip install matplotlib
@@ -23,7 +24,7 @@ RUN apt-get install -y libsndfile1
 
 # RUN python -m pip list
 
-EXPOSE 8080
+# EXPOSE 8080
 
 WORKDIR /root
 
