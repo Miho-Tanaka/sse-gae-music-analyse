@@ -196,16 +196,16 @@ def hello():
     # 2.合格のうち、演奏の長さに応じて「速い」「遅い」「ただしい」を分岐
     if dtw_cos_sim / len_correct * 100 > 90:
         if speed_ratio > 1.1:
-            evaluate = '速く弾きましたね'
+            evaluate = 'ノリノリでひけましたね！つぎはすこしだけテンポをおとしてれんしゅうしてみましょう！'
         elif speed_ratio < 0.9:
-            evaluate = 'ゆっくり弾きましたね'
+            evaluate = 'ていねいにひけましたね！つぎはすこしだけテンポをあげてれんしゅうしてみましょう！'
         else:
-            evaluate = 'じょうずに弾きましたね'
+            evaluate = 'とてもじょうずにひけましたね！このちょうしでいろんなきょくをれんしゅうしてみましょう！'
     else:
-        evaluate = 'もうすこしがんばろう'
+        evaluate = 'がんばったね！じぶんのえんそうとさんこうえんそうをききくらべて、どこがちがったか、かんがえてみましょう！'
 
 
-    str_result = str_cos_sim + str_dtw_cos_sim + evaluate
+    str_result = evaluate + str_cos_sim + str_dtw_cos_sim
     print(str_result)
 
     return str_result
