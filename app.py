@@ -16,16 +16,17 @@ import logging
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from flask import Flask, request
+from flask import Flask, request, render_template
 import librosa
 import librosa.display
 import numpy as np
-from fastdtw import fastdtw
 from dtaidistance import dtw
 from dtaidistance import dtw_visualisation as dtwvis
 from sklearn.metrics.pairwise import cosine_similarity
 import urllib.request
 import sys
+import google.cloud.storage
+import os
 
 app = Flask(__name__)
  
@@ -170,8 +171,7 @@ def hello():
     y = cens_sample
     print(cens_correct)
     print(cens_sample)
-    #path = dtw.warping_path(x.T,y.T)
-    path = fastdtw(x.T, y.T, dist=(lambda x,y:acos(min(1,max(-1,cosine_similarity([x],[y])[0][0])))))
+    path = dtw.warping_path(x.T,y.T)
 
     max_scores,min_scores = rythm_deviation_cos_sim(path, x.T, y.T)
 
@@ -211,7 +211,35 @@ def hello():
 
 @app.route('/')
 def index():
-    return 'INDEX'
+    # return 'INDEX'
+    return render_template("index.html")
+
+@app.route('/send', methods=['GET', 'POST'])
+def send():
+    if request.method == 'POST':
+        img_file = request.files['img_file']
+        source_file_name = request.files['img_file'].filename
+        print('source file name is ')
+        print(source_file_name)
+        if img_file:
+            storage_client = google.cloud.storage.Client()
+
+            bucket_name = 'smartse-music'
+            bucket = storage_client.get_bucket(bucket_name)
+
+            # TODO (Developer): Replace this with the name of the local file to upload.
+            print('source_file_name is ')
+            print(source_file_name)
+            blob = bucket.blob(os.path.basename(source_file_name))
+            # Upload the local file to Cloud Storage.
+            blob.upload_from_filename(source_file_name)
+
+
+            return render_template('index.html')
+        else:
+            return ''' <p>許可されていない拡張子です</p> '''
+    else:
+        return redirect(url_for('index'))
 
 @app.errorhandler(500)
 def server_error(e):

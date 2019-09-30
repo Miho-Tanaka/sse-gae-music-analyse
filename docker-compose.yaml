@@ -9,6 +9,8 @@ services:
       - "8080:8080"
     volumes:
       - ".:/root"
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: key.json      
     container_name: 'gae-python'
     working_dir: '/root/'
     tty: true

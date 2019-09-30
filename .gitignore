@@ -2,3 +2,4 @@
 .cache/*
 .config/*
 __pycache__/*
+key.json

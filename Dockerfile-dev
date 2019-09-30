@@ -6,6 +6,7 @@ RUN pip3 install --upgrade pip
 
 RUN pip3 install --no-cache-dir pandas --no-build-isolation
 RUN pip install gunicorn
+RUN pip install google-cloud-storage
 RUN pip3 install flask 
 RUN pip install sklearn
 RUN pip install librosa
