@@ -188,8 +188,8 @@ def hello():
     len_sample = len(y.T)
 
     print('Done')
-    str_cos_sim           = 'コサイン類似度は{:.5f}({:.5f}%) / '.format(cos_sim, cos_sim/len_correct * 100)
-    str_dtw_cos_sim = 'DTW後のコサイン類似度は{:.5f}({:.5f}%) / '.format(dtw_cos_sim, dtw_cos_sim / len_correct * 100)
+    str_cos_sim           = 'コサイン類似度は{:.0f}({:.0f}%) \n'.format(cos_sim, cos_sim/len_correct * 100)
+    str_dtw_cos_sim = 'DTW後のコサイン類似度は{:.0f}({:.0f}%) \n'.format(dtw_cos_sim, dtw_cos_sim / len_correct * 100)
 
     evaluate = ''
     speed_ratio = len_correct / len_sample
@@ -203,11 +203,12 @@ def hello():
             evaluate = 'ていねいにひけましたね！つぎはすこしだけテンポをあげてれんしゅうしてみましょう！'
         else:
             evaluate = 'とてもじょうずにひけましたね！このちょうしでいろんなきょくをれんしゅうしてみましょう！'
-    else:
+    elif dtw_cos_sim / len_correct * 100 >= 80:
         evaluate = 'がんばったね！じぶんのえんそうとさんこうえんそうをききくらべて、どこがちがったか、かんがえてみましょう！'
+    else:
+        evaluate = 'きょうはきぶんがのらなかったかな？ '
 
-
-    str_result = evaluate + str_cos_sim + str_dtw_cos_sim
+    str_result = evaluate + '\n' + str_cos_sim + '\n'  + str_dtw_cos_sim
     print(str_result)
 
     return str_result
