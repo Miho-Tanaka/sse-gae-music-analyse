@@ -1,6 +1,8 @@
 FROM python:3
 ADD . /root
 
+WORKDIR /root
+
 RUN pip3 install --upgrade pip
 RUN pip install -r requirements.txt
 
@@ -12,8 +14,6 @@ RUN apt-get install -y libsndfile1
 # RUN python -m pip list
 
 # EXPOSE 8080
-
-WORKDIR /root
 
 CMD python app.py
 
