@@ -13,7 +13,6 @@
 # limitations under the License.
 
 import logging
-import pandas as pd
 import matplotlib.pyplot as plt
 
 from flask import Flask, request, render_template
@@ -31,7 +30,7 @@ import google.cloud.storage
 import os
 
 app = Flask(__name__)
- 
+
 
 
 def download(download_file_path):
@@ -87,12 +86,12 @@ def librosa_chroma(file_path="", sr=44100):
 
     #### CENSからクロマグラムを計算
     chroma_cens = librosa.feature.chroma_cens(y=y_harmonic, sr=sr)
-    
+
     # パワースペクトログラムからクロマグラムを計算
     chroma_stft = librosa.feature.chroma_stft(y=y_harmonic, sr=sr, n_chroma=12, n_fft=4096)
 
     # Constant-Qからクロマグラムを計算
-    chroma_cq = librosa.feature.chroma_cqt(y=y_harmonic, sr=sr)    
+    chroma_cq = librosa.feature.chroma_cqt(y=y_harmonic, sr=sr)
 
     # # プロットします
     # plt.figure(figsize=(12,4))
@@ -101,13 +100,13 @@ def librosa_chroma(file_path="", sr=44100):
     # plt.colorbar()
     # plt.tight_layout()
     # plt.show()
-    
+
     return chroma_cens
 
 
 def compare(path_correct,path_sample):
-  cens_correct = pd.DataFrame(librosa_chroma(file_path=path_correct, sr=44100))
-  cens_sample = pd.DataFrame(librosa_chroma(file_path=path_sample, sr=44100))
+  cens_correct = np.array(librosa_chroma(file_path=path_correct, sr=44100))
+  cens_sample = np.array(librosa_chroma(file_path=path_sample, sr=44100))
   #np.savetxt('test_burg.csv', cosine_similarity_scores(cens_correct,cens_sample), delimiter=',')
   return cosine_similarity_scores(cens_correct,cens_sample)
 
@@ -115,7 +114,7 @@ def compare(path_correct,path_sample):
 # assume cens_correct and cens_sample are ndarray
 # whose shape are both (12, window_num)
 def cosine_similarity_scores(cens_correct, cens_sample):
-  return np.diag(cosine_similarity(cens_correct.values.T,cens_sample.values.T))
+  return np.diag(cosine_similarity(cens_correct.T,cens_sample.T))
 
 def rythm_deviation_cos_sim(path,cens_correct,cens_sample):
   music_len = path[-1][0]+1
@@ -163,7 +162,7 @@ def hello():
     cos_sim = sum(score)
     print(cos_sim)
 
-    
+
 # """##DTW"""
 
     print('DTW------')
